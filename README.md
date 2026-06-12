@@ -2,6 +2,30 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+---
+
+## 🌐 About Workopilot (喔壳)
+
+[Workopilot Official Website](https://www.workopilot.com/) | [Workopilot Platform](https://agent.workopilot.com/) | [API Documentation](http://docs.workopilot.com/en/api/)
+
+**Workopilot (喔壳)** is an enterprise-grade AI Agent platform designed to seamlessly connect advanced Large Language Models (LLMs) with physical hardware, business systems, and web pages. It empowers organizations to build, deploy, and manage conversational Digital Employees capable of executing complex workflows, accessing databases, and controlling IoT devices.
+
+This repository (`wise.demo`) serves as an **official sample code package** showing how developers can interface with the Workopilot platform.
+
+### How Workopilot Serves Three Types of Developers:
+
+1. **AI Service API Integrators (Backend/System Developers)**
+   * **Scope**: Call structured AI services (e.g., document parsing, contract auditing, classification) via standard HTTP REST APIs.
+   * **Value**: Leverage high-value pre-built AI capabilities to structure documents or identify business risks without handling complex model prompts or hosting issues.
+2. **Interactive UI Embedders (Frontend/SaaS Web Developers)**
+   * **Scope**: Embed the Workopilot Chatbot Panel via iframe, synchronizing context, and utilizing bidirectional postMessage protocol.
+   * **Value**: Enable seamless human-computer collaboration by registering local JavaScript actions (Host Actions) that allow the AI Agent to autofill forms, trigger UI modals, and run workflows directly inside the client browser.
+3. **IoT & Hardware Terminal Creators (Embedded/IoT Developers)**
+   * **Scope**: Connect smart POS terminals, cash registers, screen systems, and audio hardware to the voice Agent.
+   * **Value**: Wrap physical device operations (e.g., printer drivers, scanner triggers, LED lighting, sensor queries) as local Agent Tools, bringing digital intelligence to physical, face-to-face service settings.
+
+---
+
 `wise.demo` is an open capability demonstration package designed for developers. It showcases how to integrate and connect with **Wise** AI capabilities, including **Digital Employees (Agents)**, **Document Classification & Extraction**, **Contract Risk Auditing**, **iframe Embedding**, and **Host Action Injection** under realistic business scenarios.
 
 The project provides interactive, fully-functional frontend demos, detailed architectural guides, and connection templates. By default, it features a **Mock-First** mode, allowing developers to understand UI interactions, data flows, and message protocols instantly, then switch to real API connections via simple configuration.
