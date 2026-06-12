@@ -45,7 +45,7 @@ const iframeRef = ref<HTMLIFrameElement | null>(null);
 const defaultUserId = '100200';
 const defaultUserName = 'andy';
 const platformConfig = loadPlatformConfig();
-const agentAvatarUrl = '/agent-avatar.svg';
+const agentAvatarUrl = './agent-avatar.svg';
 const robotEmbedUrl = computed(() => {
   const template = platformConfig.robotEmbedUrl;
   return template

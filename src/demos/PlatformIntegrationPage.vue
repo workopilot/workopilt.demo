@@ -69,7 +69,7 @@ const mockUserProfile = computed<UserProfile>(() => {
     nickName: '喔壳商机专员 (演示账号)',
     email: 'andy.sso@workopilot.demo',
     phoneNumber: '188-8888-8888',
-    avatar: '/agent-avatar.svg',
+    avatar: './agent-avatar.svg',
     tenantId: parsedParams.value.tenantId || 'tenant_demo_corp',
     tenantName: '北京喔壳智能科技有限公司',
     isPlatformUser: true,
@@ -324,7 +324,7 @@ watch(mockUserProfile, (newVal) => {
           <div class="grid gap-5">
             <div class="flex items-center gap-4 border-b border-slate-100/60 pb-4">
               <div class="h-16 w-16 overflow-hidden rounded-full border-2 border-slate-200 bg-slate-50 p-0.5 shadow-sm">
-                <img :src="userInfo.avatar || '/agent-avatar.svg'" class="h-full w-full rounded-full object-cover" :alt="t('integration.userProfileTitle')" />
+                <img :src="userInfo.avatar || './agent-avatar.svg'" class="h-full w-full rounded-full object-cover" :alt="t('integration.userProfileTitle')" />
               </div>
               <div>
                 <h4 class="text-base font-bold text-slate-900">{{ userInfo.nickName || userInfo.userName || 'Andy' }}</h4>
