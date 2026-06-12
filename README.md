@@ -135,6 +135,13 @@ npm run build
 
 ---
 
+> [!IMPORTANT]
+> **Security Notice / Production Best Practice**:
+> In this demo application, all Workopilot APIs are invoked **directly from the frontend browser** (using Vite proxy) to simplify the setup and interactive flows.
+> **For production deployments, you should invoke Workopilot APIs from your backend server (Server-to-Server)**. Directly exposing API Keys or credentials in the browser/client-side code poses significant security risks. The recommended architecture is for your frontend to communicate with your own backend service, which secures the API credentials and forwards requests to the Workopilot platform.
+
+---
+
 ## ⚙️ Configuration & Proxy Setup
 
 To invoke the real Wise platform APIs directly from your local dev environment, you need to configure your API Credentials and start the Vite Dev Server to route requests via the built-in reverse proxy.
