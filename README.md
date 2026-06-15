@@ -96,7 +96,7 @@ wise.demo/
 │   └── locales/             # i18n resource files
 │       ├── zh.ts            # Chinese resources
 │       └── en.ts            # English resources
-├── vite.config.ts           # Vite development server & reverse proxy config
+├── vite.config.ts           # Vite development server configuration
 ├── tailwind.config.ts       # Tailwind CSS design system config
 ├── tsconfig.json            # TypeScript configuration
 └── package.json             # NPM dependencies & scripts
@@ -137,38 +137,20 @@ npm run build
 
 > [!IMPORTANT]
 > **Security Notice / Production Best Practice**:
-> In this demo application, all Workopilot APIs are invoked **directly from the frontend browser** (using Vite proxy) to simplify the setup and interactive flows.
+> In this demo application, all Workopilot APIs are invoked **directly from the frontend browser** (using the configured `baseUrl` directly) to simplify the setup and interactive flows.
 > **For production deployments, you should invoke Workopilot APIs from your backend server (Server-to-Server)**. Directly exposing API Keys or credentials in the browser/client-side code poses significant security risks. The recommended architecture is for your frontend to communicate with your own backend service, which secures the API credentials and forwards requests to the Workopilot platform.
 
 ---
 
-## ⚙️ Configuration & Proxy Setup
+## ⚙️ Configuration & API Setup
 
-To invoke the real Wise platform APIs directly from your local dev environment, you need to configure your API Credentials and start the Vite Dev Server to route requests via the built-in reverse proxy.
+To invoke the real Wise platform APIs directly from your local dev environment, you need to configure your API Credentials.
 
 ### Setup Steps
 1. Navigate to the **Platform Config** tab in the Demo App.
 2. Enter your Wise **API Key** (obtainable from the Wise Open Platform console).
-3. Ensure the **Base URL** points to `https://agent.workopilot.com` (default).
-4. Restart your Vite development server (`npm run dev`) to initialize the proxy configured in `vite.config.ts`:
-   ```ts
-   server: {
-     port: 5177,
-     proxy: {
-       '/api': {
-         target: 'https://agent.workopilot.com',
-         changeOrigin: true,
-         secure: false,
-       },
-       '/net-api': {
-         target: 'https://agent.workopilot.com',
-         changeOrigin: true,
-         secure: false,
-       }
-     }
-   }
-   ```
-5. Requests pointing to the default API Base URL will automatically route through local endpoints `/api/...` and `/net-api/...` to bypass browser CORS (Cross-Origin Resource Sharing) restrictions.
+3. Ensure the **Base URL** points to `https://agent.workopilot.com` (default) or your custom gateway.
+4. Requests will be made directly to `${baseUrl}/api/...` and `${baseUrl}/net-api/...` using standard absolute URLs as configured. Note that you may need to ensure CORS headers are correctly allowed on your custom gateways if you configure a custom `Base URL` in the browser.
 
 ---
 
@@ -177,7 +159,7 @@ To invoke the real Wise platform APIs directly from your local dev environment, 
 1. **Understand Scenarios**: Read the interactive architecture guide on the **Integration Guide** page to choose between *Service APIs* (data parsing/extraction) and *Digital Employees* (interactive iframe workflows).
 2. **Experience Mock Flow**: Run the demo app in default Mock mode to test UI interactions, HMR, and look-and-feel.
 3. **Configure API Keys**: Add your credentials in the **Platform Config** tab.
-4. **Connect Real Services**: Set `MOCK_ENABLED = false` or trigger real actions to verify document uploads, data extractions, and user profiles through the local proxy.
+4. **Connect Real Services**: Set `MOCK_ENABLED = false` or trigger real actions to verify document uploads, data extractions, and user profiles.
 5. **Connect Agent iframe**: Configure your customized Agent embed URL in the config screen, open the Opportunity Demo or Voice Terminal, and verify bidirectional `host-action` callouts and hardware controls.
 
 ---

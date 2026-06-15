@@ -96,7 +96,7 @@ wise.demo/
 │   └── locales/             # 语言包定义
 │       ├── zh.ts            # 中文包
 │       └── en.ts            # 英文包
-├── vite.config.ts           # Vite 开发服务器与反向代理配置
+├── vite.config.ts           # Vite 开发服务器配置
 ├── tailwind.config.ts       # Tailwind CSS 主题配置
 ├── tsconfig.json            # TypeScript 配置
 └── package.json             # NPM 依赖与执行脚本
@@ -137,45 +137,27 @@ npm run build
 
 > [!IMPORTANT]
 > **安全与生产环境部署建议**：
-> 在本演示项目中，所有对喔壳开放接口的调用都是**直接在前端浏览器中发起**的（通过 Vite 开发代理进行转发），这仅用于简化 Demo 运行和本地调试。
+> 在本演示项目中，所有对喔壳开放接口的调用都是**直接在前端浏览器中发起**的（直接请求配置的 `baseUrl`），这仅用于简化 Demo 运行和本地调试。
 > **在实际生产部署中，建议您必须从您的后端服务（Server-to-Server）调用喔壳的接口**。在前端直接配置或暴露长期有效的 API Key 会带来严重的安全泄露风险。推荐的生产安全架构是：您的前端只与您自己的后端系统进行通信，由后端系统安全地保存 API 密钥并代理向喔壳平台发起请求。
 
 ---
 
-## ⚙️ 真实接口代理配置
+## ⚙️ 真实接口连接配置
 
-在本地联调喔壳开放接口时，为了规避浏览器的同源策略（CORS 跨域限制），您需要将请求发送给本地开发服务器，由本地反向代理转发给喔壳服务器。
+在本地联调喔壳开放接口时，您需要配置您的 API 连接密钥与地址。
 
 ### 配置步骤
 1. 打开演示系统的 **配置平台连接信息（Platform Config）** 页面。
 2. 录入您的喔壳开放平台 **API Key**（可在喔壳开放平台控制台或系统设置中获取）。
-3. 确保 **Base URL** 指向默认域名 `https://agent.workopilot.com`。
-4. 重新启动本地 Vite 开发服务器 (`npm run dev`)。系统会自动读取 [vite.config.ts](file:///e:/work/git2026/agent_platform/wise.demo/vite.config.ts) 中配置的反向代理规则：
-   ```ts
-   server: {
-     port: 5177,
-     proxy: {
-       '/api': {
-         target: 'https://agent.workopilot.com',
-         changeOrigin: true,
-         secure: false,
-       },
-       '/net-api': {
-         target: 'https://agent.workopilot.com',
-         changeOrigin: true,
-         secure: false,
-       }
-     }
-   }
-   ```
-5. 所有指向默认 Base URL 的前端请求都会被本地拦截并转化为相对路径 `/api/...` 和 `/net-api/...` 发送，由本地 Vite 服务进行转发，从而彻底绕过浏览器的跨域拦截。
+3. 确保 **Base URL** 指向默认域名 `https://agent.workopilot.com` 或您的自建网关地址。
+4. 前端代码会直接使用绝对路径拼接请求：`${baseUrl}/api/...` 和 `${baseUrl}/net-api/...` 发送 API 请求。注意：若配置了第三方自定义网关，请确保对应的网关已正确开启跨域（CORS）访问支持。
 
 ---
 
 ## 📖 推荐接入推进流程
 
 1. **阅读架构指南**：在 **对接说明 (Integration Guide)** 页面了解智能服务 API 与嵌入式数字员工的区别，确定符合您业务系统的接入路线。
-2. **体验 Mock 演示**：运行本地服务，使用 Mock 数据测试数据联动、表单填充、HMR 通信和设备通话，熟悉整体用户体验。
+2. **体验 Mock 演示**：运行本地服务，使用 Mock 数据测试数据联动、表单填充、HMR 通信 and 设备通话，熟悉整体用户体验。
 3. **设置连接密钥**：在 **配置（Platform Config）** 中录入 API 密钥与地址。
 4. **验证真实接口**：设置 `MOCK_ENABLED = false` 或触发真实接口动作，联调并测试合同提取、风险审核、SSO 参数捕获以及用户信息同步。
 5. **端到端接入**：将您在喔壳平台配置的专属数字员工嵌入链接填入配置页，在商机页面和设备终端测试双向 `host-action` 调用和拟物硬件控制。

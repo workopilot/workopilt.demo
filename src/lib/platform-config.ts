@@ -66,8 +66,5 @@ export function normalizeWiseBaseUrl(baseUrl: string) {
   while (normalized.endsWith('/')) {
     normalized = normalized.slice(0, -1);
   }
-  if (normalized === 'https://agent.workopilot.com') {
-    return '';
-  }
   return normalized;
 }

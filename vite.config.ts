@@ -12,17 +12,5 @@ export default defineConfig({
   },
   server: {
     port: 5177,
-    proxy: {
-      '/api': {
-        target: 'https://agent.workopilot.com',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/net-api': {
-        target: 'https://agent.workopilot.com',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
   },
 });
